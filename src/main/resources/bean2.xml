@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="book" class="spring.Book">
+<!--        一,注入属性-->
+        <!-- set 方法注入属性-->
+        <!--        <property name="bname" value="易筋经"></property>-->
+        <!--        <property name="bauthor" value="达摩老祖"></property>-->
+
+        <!-- 有参数构造注入属性-->
+        <constructor-arg name="bname" value="电脑"></constructor-arg>
+        <constructor-arg name="bauthor" value="China"></constructor-arg>
+        <!--        二，注入特殊属性-->
+        <!--1，null 值-->
+        <!--        <property name="address">-->
+        <!--            <null/>-->
+        <!--        </property>-->
+        <!--2，属性值包含特殊符号
+法1 把<>进行转义 &lt; &gt;
+法2 把带特殊符号内容写到 CDATA
+-->
+        <property name="address">
+            <value><![CDATA[<<南京>>]]></value>
+        </property>
+<!--        三，注入bean-->
+        <!--        注入外部bean-->
+        <!--        <property name="userDao" ref="userDao"></property>-->
+        <!--分割线分割线-->
+        <!--    注入内部bean-->
+        <!--        <property name="userDao">-->
+        <!--            <bean id="userDao" class="spring.dao.userDao">-->
+        <!--            </bean>-->
+        <!--        </property>-->
+        <!--分割线分割线-->
+        <!--    <bean id="userDao" class="spring.dao.userDao"></bean>-->
+        <!--        级联赋值（第一种写法）-->
+        <!--四，级联赋值-->
+        <property name="userDao" ref="userDao"></property>
+        <property name="userDao.name" value="张三"></property>
+    </bean>
+<!--    <bean id="userDao" class="spring.dao.userDao">-->
+<!--        <property name="name" value="张三"></property>-->
+<!--    </bean>-->
+<!--分割线分割线分割线-->
+<!--另一种级联赋值-->
+        <bean id="userDao" class="spring.dao.userDao">
+        </bean>
+<!--    五，其他-->
+    <!--1 集合类型属性注入-->
+    <bean id="stu" class="com.atguigu.spring5.collectiontype.Stu">
+        <!--数组类型属性注入-->
+        <property name="courses">
+            <array>
+                <value>java 课程</value>
+                <value>数据库课程</value>
+            </array>
+        </property>
+        <!--list 类型属性注入-->
+        <property name="list">
+            <list>
+                <value>张三</value>
+                <value>小三</value>
+            </list>
+        </property>
+        <!--map 类型属性注入-->
+        <property name="maps">
+            <map>
+                <entry key="JAVA" value="java"></entry>
+                <entry key="PHP" value="php"></entry>
+            </map>
+        </property>
+        <!--set 类型属性注入-->
+        <property name="sets">
+            <set>
+                <value>MySQL</value>
+                <value>Redis</value>
+            </set>
+        </property>
+        <!--注入 list 集合类型,值是对象-->
+        <property name="courseList">
+            <list>
+                <ref bean="course1"></ref>
+                <ref bean="course2"></ref>
+            </list>
+        </property>
+    </bean>
+
+</beans>
